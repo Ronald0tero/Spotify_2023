@@ -1,7 +1,7 @@
 # Spotify_2023
 
 Este proyecto es un R Markdown que analiza datos de canciones, incluyendo información sobre el nombre de la canción, nombre del artista(s), la presencia o rango en una lista de Spotify, datos de Deezer y Apple Music, así como características como la "bailabilidad" y la "alegría" de las canciones.
-## Imagenes
+## Algunas imagenes
 [![Captura-de-pantalla-1-1.png](https://i.postimg.cc/sXzJHFkM/Captura-de-pantalla-1-1.png)](https://postimg.cc/gwMRr7kp)
 [![Captura-de-pantalla-2-1.png](https://i.postimg.cc/sgZ9VDyB/Captura-de-pantalla-2-1.png)](https://postimg.cc/rDMtjTDc)
 [![Captura-de-pantalla-3-1.png](https://i.postimg.cc/90MZscJQ/Captura-de-pantalla-3-1.png)](https://postimg.cc/YG5vWK55)
