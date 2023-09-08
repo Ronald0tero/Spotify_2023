@@ -36,7 +36,7 @@ spotify_datos <- read_csv("spotify-2023.csv") %>% clean_names() %>% mutate(strea
 
 ```
 
-# Top 10 Canciones mas incluidas en listas de reproduccion de Spotify, Apple Music y Deezer
+# Top 10 Canciones más incluidas en listas de reproducción de Spotify, Apple Music y Deezer
 
 ```{r}
 track_in_spotify <- spotify_datos %>% 
@@ -81,7 +81,7 @@ highchart() %>%
 
 ```
 
-# Top 10 de las canciones con mas presencia en las listas de Spotify, Apple y Deezer.
+# Top 10 de las canciones con más presencia en las listas de Spotify, Apple y Deezer.
 
 ```{r}
 track_in_spotify_ch <- spotify_datos %>% 
@@ -126,7 +126,7 @@ highchart() %>%
 
 ```
 
-# Top 10 artistas con mas canciones en los datos
+# Top 10 artistas con más canciones
 
 ```{r}
 top_artistas <- spotify_datos %>% 
@@ -146,7 +146,7 @@ highchart() %>%
 
 ```
 
-# Top 10 canciones con mas streams
+# Top 10 canciones con más streams
 
 ```{r}
 top_strems_spotify <- spotify_datos %>% 
@@ -199,17 +199,18 @@ spotify_datos %>%
 ***
 
 # Conclusión
->* Las canciones en los diferentes repoductores no tienen las mismas clasificaciones en las listas de reprodución
->* las canciones no son igual de populares en las listas de los usuarios de Spotify, Apple Music o Dezzer
->* Get Lucky - Radio edit es la cancion mas escuchada en Spotify con una inclusion de 52.898 en las palylist
->* La cancion mas escuchada en Apple Music es blinding lights con una inclusion de 672 en las palylists
->* Smells like teen spirits - Remastered 2021 es la cancion que esta en mas listas de Deezer, un total de 12.367
->* Spotify es el reporductor de musica con mayor inclusion de canciones a las playlists
->* El artista con mayor numero de canciones es Taylor Swift con 34 canciones.
->* La cancion con mayor strems es blinding lights de The Weeknd.
->* C# es la clave mas común de las canciones.
->* Existe una mayor correlación entre las playlists de dezzer y las playlists de Spotify y una gran correlación entre las playlists de Spotify y las playlists de Apple Music.
->* Hay muy poca correlacion entre la presencia y rango de la canción en las listas de Spotify y el número de listas de reproducción de Spotify en las que está incluida la canción 
+
+>* Las canciones en diferentes reproductores tienen clasificaciones diferentes en las listas de reproducción.
+>* Las canciones no son igualmente populares en Spotify, Apple Music o Deezer.
+>* "Get Lucky - Radio edit" es la canción más escuchada en Spotify con una inclusión de 52,898 en las playlists.
+>* "Blinding Lights" es la canción más escuchada en Apple Music con una inclusión de 672 en las playlists.
+>* "Smells Like Teen Spirits - Remastered 2021" es la canción que está en más listas de Deezer, un total de 12,367.
+>* Spotify es el reproductor de música con mayor inclusión de canciones en las playlists.
+>* Taylor Swift es el artista con el mayor número de canciones, con un total de 34.
+>* "Blinding Lights" de The Weeknd es la canción con mayor número de streams.
+>* La clave más común de las canciones es C#.
+>* Existe una mayor correlación entre las playlists de Deezer y las de Spotify, y una gran correlación entre las playlists de Spotify y las de Apple Music.
+>* Hay una correlación muy baja entre la presencia y el rango de una canción en las listas de Spotify y el número de playlists en las que está incluida
 
 
 
