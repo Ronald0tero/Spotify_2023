@@ -1,0 +1,217 @@
+---
+title: "Musica 2023 y Listas de reproduccion"
+author: "Ronaldo_oz"
+date: "2023-09-08"
+output: 
+  html_document:
+    df_print: paged
+    toc: true
+    number_sections: false
+    highlight: pygments
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  comment = NA,
+  warning= FALSE,
+  message = FALSE,
+  fig.align='center'
+)
+
+```
+
+```{r}
+packetes_esenciales <- c("tidyverse", "janitor", "highcharter", "readr", "stringr", "ggplot2") 
+
+invisible(lapply(packetes_esenciales, require, character.only = TRUE, quietly = TRUE))
+
+```
+
+```{r}
+spotify_datos <- read_csv("spotify-2023.csv") %>% clean_names() %>% mutate(streams = as.double(streams))
+
+#glimpse(spotify_datos)
+
+
+```
+
+# Top 10 Canciones mas incluidas en listas de reproduccion de Spotify, Apple Music y Deezer
+
+```{r}
+track_in_spotify <- spotify_datos %>% 
+  select(track_name, in_spotify_playlists) %>% 
+  arrange(desc(in_spotify_playlists)) %>% 
+  slice(1:10)
+
+highchart() %>% 
+  hc_chart(type = "column", options3d = list(enabled = TRUE, alpha = 20, beta = 15)) %>% 
+  hc_xAxis(categories = track_in_spotify$track_name) %>% 
+  hc_add_series(data = track_in_spotify$in_spotify_playlists, name = "Numero de listas de reproduccion de Spotify en la que esta incluida la cancion") %>% 
+  hc_title(text = "Top 10 canciones en mas listas de Spotify") %>% 
+  hc_add_theme(hc_theme_db())
+
+
+
+track_in_apple <- spotify_datos %>% 
+  select(track_name, in_apple_playlists) %>% 
+  arrange(desc(in_apple_playlists)) %>% 
+  slice(1:10)
+
+highchart() %>% 
+  hc_chart(type = "column", options3d = list(enabled = TRUE, alpha = 20, beta = 15)) %>% 
+  hc_xAxis(categories = track_in_apple$track_name) %>% 
+  hc_add_series(data = track_in_apple$in_apple_playlists, name = "Numero de listas de reproduccion de Apple Music en la que esta incluida la cancion") %>% 
+  hc_title(text = "Top 10 canciones en mas listas de Apple Music") %>% 
+  hc_add_theme(hc_theme_monokai())
+
+
+
+track_in_deezer <- spotify_datos %>% 
+  select(track_name, in_deezer_playlists) %>% 
+  arrange(desc(in_deezer_playlists)) %>% 
+  slice(1:10)
+
+highchart() %>% 
+  hc_chart(type = "column", options3d = list(enabled = TRUE, alpha = 20, beta = 15)) %>% 
+  hc_xAxis(categories = track_in_deezer$track_name) %>% 
+  hc_add_series(data = track_in_deezer$in_deezer_playlists, name = "Numero de listas de reproduccion de Deezer en la que esta incluida la cancion") %>% 
+  hc_title(text = "Top 10 canciones en mas listas de Deezer") %>% 
+  hc_add_theme(hc_theme_darkunica())
+
+```
+
+# Top 10 de las canciones con mas presencia en las listas de Spotify, Apple y Deezer.
+
+```{r}
+track_in_spotify_ch <- spotify_datos %>% 
+  select(track_name, in_spotify_charts) %>% 
+  arrange(desc(in_spotify_charts)) %>% 
+  slice(1:10)
+
+highchart() %>% 
+  hc_chart(type = "column", options3d = list(enabled = TRUE, alpha = 20, beta = 15)) %>% 
+  hc_xAxis(categories = track_in_spotify_ch$track_name) %>% 
+  hc_add_series(data = track_in_spotify_ch$in_spotify_charts, name = "Numero de listas en las que esta presente") %>% 
+  hc_title(text = "Top 10 de las canciones con mas presencia en las listas de Spotify") %>% 
+  hc_add_theme(hc_theme_db())
+
+
+
+track_in_apple_ch <- spotify_datos %>% 
+  select(track_name, in_apple_charts) %>% 
+  arrange(desc(in_apple_charts)) %>% 
+  slice(1:10)
+
+highchart() %>% 
+  hc_chart(type = "column", options3d = list(enabled = TRUE, alpha = 20, beta = 15)) %>% 
+  hc_xAxis(categories = track_in_apple_ch$track_name) %>% 
+  hc_add_series(data = track_in_apple_ch$in_apple_charts, name = "Numero de listas en las que esta presente") %>% 
+  hc_title(text = "Top 10 de las canciones con mas presencia en las listas de Apple Music") %>% 
+  hc_add_theme(hc_theme_monokai())
+
+
+
+track_in_deezer_ch <- spotify_datos %>% 
+  select(track_name, in_deezer_charts) %>% 
+  arrange(desc(in_deezer_charts)) %>% 
+  slice(1:10)
+
+highchart() %>% 
+  hc_chart(type = "column", options3d = list(enabled = TRUE, alpha = 20, beta = 15)) %>% 
+  hc_xAxis(categories = track_in_deezer_ch$track_name) %>% 
+  hc_add_series(data = track_in_deezer_ch$in_deezer_charts, name = "Numero de listas en las que esta presente") %>% 
+  hc_title(text = "Top 10 de las canciones con mas presencia en las listas de Deezer") %>% 
+  hc_add_theme(hc_theme_darkunica())
+
+```
+
+# Top 10 artistas con mas canciones en los datos
+
+```{r}
+top_artistas <- spotify_datos %>% 
+  select(artist_s_name, track_name) %>% 
+  group_by(artist_s_name) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count)) %>% 
+  slice(1:10)
+
+highchart() %>% 
+  hc_chart(type="column", options3d = list(enabled = TRUE, alpha = 20, beta = 15)) %>% 
+  hc_xAxis(categories=top_artistas$artist_s_name) %>% 
+  hc_add_series(data=top_artistas$count, name="Numero de canciones") %>% 
+  hc_add_theme(hc_theme_bloom())
+
+
+
+```
+
+# Top 10 canciones con mas streams
+
+```{r}
+top_strems_spotify <- spotify_datos %>% 
+  select(track_name, streams) %>% 
+  arrange(desc(streams)) %>% 
+  slice(1:10)
+
+highchart() %>% 
+  hc_chart(type="column", options3d = list(enabled = TRUE, alpha = 20, beta = 15)) %>% 
+  hc_xAxis(categories=top_strems_spotify$track_name) %>% 
+  hc_add_series(data=top_strems_spotify$streams, name="Streams") %>% 
+  hc_add_theme(hc_theme_google())
+
+```
+
+
+
+# Porcentaje de claves de las canciones
+
+```{r}
+category_key<-spotify_datos %>% 
+  select(key) %>% 
+  group_by(key) %>% 
+  summarise(count=n()) %>% 
+  arrange(desc(count))
+
+category_key %>% 
+  hchart(type = "pie", hcaes(x = key, y = count), showInLegend = TRUE, 
+         legend = list(layout = "vertical", align = "right", 
+                       verticalAlign = "middle", borderWidth = 0.5)) %>% 
+  hc_title(text = 'Claves de las Canciones') %>%
+  hc_add_theme(hc_theme_google()) %>%
+  hc_chart(options3d = list(enabled = TRUE, alpha = 45, beta = 0)) %>% 
+  hc_plotOptions(pie = list(innerSize = 100, depth = 45,
+                            dataLabels = list(enabled = TRUE,
+                                              format = "<b>{point.percentage:.2f}%</b>")),
+                 tooltip = list(pointFormat = "<b>{point.percentage:.2f}%</b>"))
+
+```
+
+
+# Mapa de calor de correlación: Métricas multiplataforma
+```{r}
+spotify_datos %>% 
+  select(in_spotify_playlists, in_spotify_charts, in_apple_playlists, in_apple_charts, in_deezer_playlists, in_deezer_charts) %>% 
+  cor() %>% 
+  hchart()
+```
+
+***
+
+# Conclusión
+>* Las canciones en los diferentes repoductores no tienen las mismas clasificaciones en las listas de reprodución
+>* las canciones no son igual de populares en las listas de los usuarios de Spotify, Apple Music o Dezzer
+>* Get Lucky - Radio edit es la cancion mas escuchada en Spotify con una inclusion de 52.898 en las palylist
+>* La cancion mas escuchada en Apple Music es blinding lights con una inclusion de 672 en las palylists
+>* Smells like teen spirits - Remastered 2021 es la cancion que esta en mas listas de Deezer, un total de 12.367
+>* Spotify es el reporductor de musica con mayor inclusion de canciones a las playlists
+>* El artista con mayor numero de canciones es Taylor Swift con 34 canciones.
+>* La cancion con mayor strems es blinding lights de The Weeknd.
+>* C# es la clave mas común de las canciones.
+>* Existe una mayor correlación entre las playlists de dezzer y las playlists de Spotify y una gran correlación entre las playlists de Spotify y las playlists de Apple Music.
+>* Hay muy poca correlacion entre la presencia y rango de la canción en las listas de Spotify y el número de listas de reproducción de Spotify en las que está incluida la canción 
+
+
+
+
+
